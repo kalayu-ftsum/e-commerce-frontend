@@ -13,19 +13,8 @@ import {
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
 import DropdownMenuCustom from "./DropDownMenuCustom"
-const Logo = () => (
-  <LocalizedClientLink
-    className="hover:text-ui-fg-base"
-    href="/"
-    scroll={false}
-    data-testid="nav-home-link"
-  >
-    <div className="flex flex-row gap-y-2">
-      <BuildingStorefront />
-      DressUp
-    </div>
-  </LocalizedClientLink>
-)
+
+import Logo from '@modules/common/components/logo'
 
 function NavLinks({
   navItems
