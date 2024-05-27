@@ -1,0 +1,40 @@
+.f-carousel {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.f-carousel__slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.f-carousel__slide img {
+  width: 100%;
+  height: auto;
+}
+
+.zoom-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.zoom-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.zoom-result {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  transform: scale(0.9); /* Adjust the scale for zoom level */
+  transform-origin: center;
+  display: none; /* Hide by default */
+}

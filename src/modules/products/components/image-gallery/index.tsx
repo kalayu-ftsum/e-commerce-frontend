@@ -31,7 +31,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
             </Container>
           )
         })}
-      </div>
+</div>
     </div>
   )
 }

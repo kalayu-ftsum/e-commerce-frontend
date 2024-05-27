@@ -35,6 +35,7 @@ export default function ProductActions({
 }: ProductActionsProps) {
   const [options, setOptions] = useState<Record<string, string>>({})
   const [isAdding, setIsAdding] = useState(false)
+  const [quantity, setQuantity] = useState(1)
 
   const countryCode = useParams().countryCode as string
 
@@ -128,7 +129,7 @@ export default function ProductActions({
 
     await addToCart({
       variantId: variant.id,
-      quantity: 1,
+      quantity: quantity,
       countryCode,
     })
 
@@ -155,19 +156,62 @@ export default function ProductActions({
                   </div>
                 )
               })}
+              <h3 className="text-sm">Quantity</h3>
+              <div className="flex divide-x border w-max mt-2 rounded overflow-hidden">
+                <button
+                  type="button"
+                  className="bg-gray-100 w-12 h-10 font-semibold"
+                  onClick={()=>setQuantity(prev=>{
+                    if(prev === 1) return prev
+                    return prev - 1
+                  })}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-3 fill-current inline"
+                    viewBox="0 0 124 124"
+                  >
+                    <path
+                      d="M112 50H12C5.4 50 0 55.4 0 62s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12z"
+                      data-original="#000000"
+                    ></path>
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  className="bg-transparent w-12 h-10 font-semibold text-gray-800 text-lg"
+                >
+                  {quantity}
+                </button>
+                <button
+                  type="button"
+                  className="bg-gray-800 text-white w-12 h-10 font-semibold"
+                  onClick={()=>setQuantity(prev=>prev+1)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-3 fill-current inline"
+                    viewBox="0 0 42 42"
+                  >
+                    <path
+                      d="M37.059 16H26V4.941C26 2.224 23.718 0 21 0s-5 2.224-5 4.941V16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5H16v11.059C16 39.776 18.282 42 21 42s5-2.224 5-4.941V26h11.059C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z"
+                      data-original="#000000"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
               <Divider />
             </div>
           )}
         </div>
 
-        <ProductPrice product={product} variant={variant} region={region} />
+        <ProductPrice quantity={quantity} product={product} variant={variant} region={region} />
 
-        <Button
+        <button
           onClick={handleAddToCart}
           disabled={!inStock || !variant || !!disabled || isAdding}
-          variant="primary"
-          className="w-full h-10"
-          isLoading={isAdding}
+          // variant="primary"
+          className="min-w-[200px] bg-gray-800 hover:bg-gray-900 text-white disabled:text-gray-800  disabled:border-gray-800 disabled:border-2 disabled:bg-transparent px-4 py-3   text-sm font-semibold rounded"
           data-testid="add-product-button"
         >
           {!variant
@@ -175,7 +219,7 @@ export default function ProductActions({
             : !inStock
             ? "Out of stock"
             : "Add to cart"}
-        </Button>
+        </button>
         <MobileActions
           product={product}
           variant={variant}
